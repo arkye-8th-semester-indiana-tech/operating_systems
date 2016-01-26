@@ -1,0 +1,39 @@
+Instruction
+	Operation code
+	Registrator
+	Memory
+
+High Level Language -> (Assembler) -> Machine Language
+
+Architecture Layers
+	"Black box" lower level detais as move to higher level
+
+Computer Architecture Layers
+	Transistors and Gates
+	Simple Devices
+	System Devices
+	Computer System Architecture
+	Instruction Set
+	Operating Systems
+	Distributed, N-Tier, Client/Server and Parallel Systems
+	
+CISC
+RISC
+
+Operating Systems
+
+Language Translations
+
+Interpreter x Compiler
+
+Virtual Machine Concept
+
+CPU to System Bus Interface
+	MDR
+	MAR
+	Program Counter (PC) Increment goes to MAR
+
+Pipeline
+
+Cache
+	Fully Associative Cache
