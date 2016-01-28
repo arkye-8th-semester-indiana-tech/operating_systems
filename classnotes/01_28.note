@@ -1,0 +1,27 @@
+Services Provided by the OS
+Jobs and Processes
+Categories of OS
+Small and Specialized OS
+Embedded OS
+Modern Operating Systems
+Mechanism and Policies
+System Implementation
+
+Chapter 2 - Processes and Threads
+
+Process Management
+	Process Creation
+	Process Behavior
+	System Resources
+		Active
+			CPU, I/O devices
+			Memory
+	Process States
+	Process State-Transition Diagram
+	Process Descriptor (Process Control Block - PCB)
+		Data in a Process Descriptor
+		Process Table
+
+Threads
+
+> Read Chapter 1 & 2
