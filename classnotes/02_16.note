@@ -1,0 +1,114 @@
+Goals of Processor Scheduling
+Scheduling and Performance
+Types of Schedulers
+	Long-term (memory allocation)
+	Medium-term
+		Swapping
+	Short-term (processor scheduling)
+		Dispatcher
+Process Activities
+	Ready queue
+	Execute CPU burst
+	I/O queue
+	Terminate or Return
+Simple Model for Processor Scheduling
+Scheduler
+	Processes -> Ready Queue
+	Enqueuer
+Dispatcher
+	Who uses the CPU?
+	Dispatch Latency
+Occurrence of a Context Switch
+	Process execution completed
+	Process interrupted by time
+	Process interrupted by OS (higher priority process arrived)
+Process Queues
+	Job Queue (all processes)
+	Ready Queue
+	Device Queue
+	Arrivals Queue (external)
+Multiple Classes of Processes
+	Associated Priority
+Scheduling with Multiple Queues
+Scheduling of Multi-Class System
+	Not Fair
+	Starvation
+		Indefinite Waiting
+		Aging Solution
+Criteria for Scheduling Algorithms
+	CPU Usage
+	Throughput
+	Turnaround Time
+	Waiting Time
+	Response Time
+	Fairness
+CPU-IO Bursts of Processes
+	I/O bound: many short CPU burst
+	CPU bound: few long CPU burst
+CPU Scheduling Policies
+	Non-Preemptive
+		No interruptions are allowed
+	Preemptive
+Priorities and Scheduling
+CPU Scheduling Policies
+	First-Come-First-Served (FCFS) (Non-Preemptive)
+		P1, P2, P3 = {24ms, 3ms, 3ms}
+		Average Turnaround: 27ms
+	Shortest Job First (Shortest Process Next) (Non-Preemptive)
+	Longest Job First (Non-Preemptive)
+	Priority Scheduling (Non-Preemptive)
+	Round Robin (RR) (Preemptive)
+		Time Sharing System
+		Ready Queue = Circular Queue
+		Time Interval = Time Quantum (Time Slice)
+		Length of Time Quantum
+			Too Short: Many Context Switching = Lower CPU Efficiency
+			Too Long: Poor Performance Time
+	Shortest Remaining Time (SRT) (aka Shortest Remaining Time First SRTF) (Preemptive)
+	Priority Preemptive Scheduling (PPS)
+Average Waiting Time
+	RR < SJF < FCFS
+	{sum_{i=0}^{j = processes} = {waiting time sum}_{i}}/{j}
+Scheduling Algorithm Evaluation
+	Measure Performance of Computer System
+	Analytic Evaluation
+		Algorithm and System workload
+		Deterministic modeling
+		Queuing models
+	Simulation
+
+Example 3 Scheduling
+	Arrive Time: 1,2,4,5,5
+	CPU Burst: 45,5,15,20,25
+	Priority Assigned: 3,5,2,1,4
+
+	a) Turnaround Time for Every Process
+	b) Waiting Time for Every Process and Average Waiting Time
+
+	FCFS
+	RR
+	SJF
+	PR
+	SRTF
+
+Dynamic Priority Scheduling
+Heuristic Algorithm
+Real-Time Systems
+	Real-Time Scheduling Policies
+		The Rate Monotonic Scheduling (RMS)
+		The Earliest Deadline First Scheduling (EDFS)
+	Real-Time Processes
+		Service Demand
+		Priority
+		Deadline
+
+		Periodic
+		Sporadic
+Multi-Queue Scheduling
+	Example:
+		System Processes
+		Interactive Processes
+		Editing Processes
+		Batch Processes
+		Other Low Priority Processes
+Multi-Level Feedback Queue
