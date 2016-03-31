@@ -2360,17 +2360,87 @@ void OutputCommand()
    }
 }
 
+/* PROTOTYPE CODE BEGINS HERE */
+
+char firstProgramPath[FILE_NAME_LENGTH];
+char secondProgramPath[FILE_NAME_LENGTH];
+char temporaryPath[FILE_NAME_LENGTH];
+bool isTheSecondProgram;
+
+void ModifiedLoaderCommand(char path[FILE_NAME_LENGTH])
+{
+   chariInputStream.open(path);
+   if (chariInputStream.is_open())
+   {
+      bMachineReset = true;
+      bBufferIsEmpty = true;
+      bLoading = true;
+      sR_StackPointer.iHigh = iMemory[SYSTEM_SP];
+      sR_StackPointer.iLow = iMemory[SYSTEM_SP + 1];
+      sR_ProgramCounter.iHigh = iMemory[LOADER_PC];
+      sR_ProgramCounter.iLow = iMemory[LOADER_PC + 1];
+      StartExecution ();
+      bLoading = false;
+   }
+   else
+   {
+   }
+   chariInputStream.close();
+   chariInputStream.clear();
+}
+
+void getFileName()
+{
+	if (!bKeyboardInput)
+	{
+		 cout << "Data input switched back to keyboard." << endl;
+		 bKeyboardInput = true;
+		 chariInputStream.close();
+		 chariInputStream.clear();
+	}
+	cout << "Enter object file name (do not include .pepo): ";
+	cin.getline(temporaryPath, FILE_NAME_LENGTH);
+	int iTemp = cin.gcount() - 1;
+	temporaryPath[iTemp++] = '.';
+	temporaryPath[iTemp++] = 'p';
+	temporaryPath[iTemp++] = 'e';
+	temporaryPath[iTemp++] = 'p';
+	temporaryPath[iTemp++] = 'o';
+	temporaryPath[iTemp] = '\0';
+}
+
+
+void LoadAndExecuteCommand()
+{
+	getFileName();
+	strcpy(firstProgramPath,temporaryPath);
+	ModifiedLoaderCommand(firstProgramPath);
+	getFileName();
+	strcpy(secondProgramPath,temporaryPath);
+	ModifiedLoaderCommand(secondProgramPath);
+	ModifiedLoaderCommand(firstProgramPath);
+	cout << endl << "[BEGIN OF FIRST PROGRAM EXECUTION]" << endl;
+	ExecuteCommand();
+	cout << endl << "[END OF FIRST PROGRAM EXECUTION]" << endl;
+	ModifiedLoaderCommand(secondProgramPath);
+	cout << endl << "[BEGIN OF SECOND PROGRAM EXECUTION]" << endl;
+	ExecuteCommand();
+	cout << endl << "[END OF SECOND PROGRAM EXECUTION]" << endl;
+}
+
+/* PROTOTYPE CODE END HERE */
+
 void MainPrompt()
 {
    char ch;
    do
    {
       cout << endl;
-      cout << "(l)oad  e(x)ecute  (d)ump  (t)race  (i)nput  (o)utput  (q)uit: ";
+      cout << "(l)oad  e(x)ecute  (d)ump  (t)race  (i)nput  (o)utput  (q)uit (p)rototype: ";
       cin.getline(cCommand, LINE_LENGTH);
       ch = toupper(cCommand[0]);
       if (ch == 'L' || ch == 'X' || ch == 'D' || ch == 'T'
-          || ch == 'I' || ch == 'O' || ch == 'Q')
+          || ch == 'I' || ch == 'O' || ch == 'Q' || ch == 'P')
       {
          switch (ch)
          {
@@ -2379,7 +2449,8 @@ void MainPrompt()
             case 'D' : DumpCommand(); break;
             case 'T' : TraceCommand(); break;
             case 'I' : InputCommand(); break;
-            case 'O' : OutputCommand(); break;
+						case 'O' : OutputCommand(); break;
+            case 'P' : LoadAndExecuteCommand(); break;
             case 'Q' : break;
          }
       }
