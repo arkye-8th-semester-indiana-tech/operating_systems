@@ -1,0 +1,29 @@
+Deadlocks
+Resource Allocation and Deallocation
+Synchronizing Allocation of Resources
+Multiple Resource Allocation Problem
+Deadlock Example
+Deadlock - General Definition
+Disadvantage of Deadlock
+Another Example of Deadlock
+Traffic Deadlock
+Simple Resource Deadlock
+Resource Allocation Graph
+Directed Edges
+A Resource Allocation Graph
+Conditions For Deadlock (2)
+About These Conditions
+...
+Another Resource Allocation Graph
+...
+Philosopher Example
+...
+Deadlock Prevention
+Disallow Circular Wait
+Common Problems for Deadlock Prevention Methods
+Simulation Models Deadlock Preventions
+Dining Philosophers
+Deadlock Avoidance
+Unsafe State
+Deadlock Detection
+Detection Approach

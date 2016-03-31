@@ -1,0 +1,55 @@
+Test1: Tuesday (02_23)
+
+Scheduling Algorithm Evaluation
+	Criteria
+	Analytic Evaluation
+	Simulation
+
+Single Queue-Multiple Processors
+Multiple Queues-Multiple Processors
+Multi-level Feedback Queue
+
+Chapter 1
+	Application Software
+	Layers
+	OS (What are, What do)
+	User Interfaces
+	Shells
+	System Calls
+	Components of an OS
+	Jobs and Processes
+	Time-Sharing (what, where it came)
+	History of OS
+
+Chapter 2
+	Processes
+	Diff Process x Thread
+	Active States
+		Ready
+		Blocked
+		Running
+	Suspended States
+		Suspended-ready
+		Suspended-blocked
+	PCB (meaning, organized)
+	Threads
+	Lifetime
+	States
+	Don't worry about jobs and threads
+	Multiprogramming
+	Context Switch
+	I/O Handle
+
+Chapter 5
+	Types of Schedulers
+	Dispatcher
+	Process Queues
+	Processes Classes
+	Starvation = Indefinite Postponed
+	CPU Burst
+	IO Burst
+	Preemptive x Non-Preemptive Process
+	Scheduling Policies
+
+Basic states of Process
+12 to 15 questions
