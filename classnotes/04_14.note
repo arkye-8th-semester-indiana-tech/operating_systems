@@ -1,0 +1,85 @@
+Chapter 10 - Memory Management
+	Input Queue
+	Swapping
+	Overlaying (not used anymore)
+	Partitioning
+	Paging
+	Segmentation
+	Virtual Memory (Only loads a portion of program into memory)
+	
+	Addresses
+		Symbolic Address
+		Compiler -> Relative Address
+		Loader -> Physical Address
+	
+	Process Address Space
+		Logical Address
+			bound to Physical Addresses
+	
+	Binding
+		Association of instructions and data to memory addresses
+	
+	Phases of a Program
+		Compile Time
+		Linkage Time
+		Load Time
+		Execution Time
+	
+	Editor -> Symbolic Addresses -> Compiler/Assembler
+		-> Relative Addresses -> Linker -> Relative Addresses
+			-> Loader -> Physical Addresses
+	
+	Managing the Address Space
+		Relocatable Object Module
+		Linker combines modules into a Load Module
+		Loader places Load Module -> allocated block of memory
+		The loader binds logical -> physical addresses
+	
+	Dynamic Loading
+	Dynamic Linking
+		Ex: DLL
+	
+	Logical vs. Physical Address Space
+		Logical Address
+		Physical Address
+		Logical Address Space
+		Physical Address Space
+	
+	Memory-Management Unit (MMU)
+		Maps virtual to physical addresses
+	
+	Static Relocation
+	Dynamic Relocation
+	
+	Memory Protection
+		Solution
+		Alternative
+	
+	Contiguous Memory Allocation
+	
+	Multiple Partitions
+		Fixed (Static)
+		Variable (Dynamic)
+	
+	Fragmentation in Fixed Partition
+		Internal Fragmentation
+		Memory Allocation Problem
+	
+	Holes in Memory
+	
+	Dynamic Memory Allocation
+	
+	Holes and Allocations
+	
+	De-Allocation
+	
+	Advantages of Dynamic Partitions
+	
+	Compaction: Extenral Fragmentation
+	
+	Memory Allocation
+		First-fit
+		Best-fit
+		Worst-fit
+	
+	Swapping
