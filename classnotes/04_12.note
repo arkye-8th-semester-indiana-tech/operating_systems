@@ -1,0 +1,8 @@
+Memory Management
+	Real Memory
+		Fragmentation
+		Queue
+	Physical Address
+		Hex
+			0000 -> FFFF
+		Bits needed for 64K = 16
