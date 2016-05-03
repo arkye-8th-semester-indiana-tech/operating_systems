@@ -22,10 +22,43 @@ void Process::fileName(const char* fileName)
 	strcpy(vFileName, fileName);
 }
 
+bool Process::loading()
+{
+	return vLoading;
+}
+
+void Process::loading(bool loading)
+{
+	vLoading = loading;
+}
+
+
+bool Process::machineReset()
+{
+	return vMachineReset;
+}
+
+void Process::machineReset(bool machineReset)
+{
+	vMachineReset = machineReset;
+}
+
+
+bool Process::bufferIsEmpty()
+{
+	return vBufferIsEmpty;
+}
+
+void Process::bufferIsEmpty(bool bufferIsEmpty)
+{
+	vBufferIsEmpty = bufferIsEmpty;
+}
+
 bool Process::keyboardInput()
 {
 	return vKeyboardInput;
 }
+
 void Process::keyboardInput(bool keyboardInput)
 {
 	vKeyboardInput = keyboardInput;
@@ -35,9 +68,54 @@ bool Process::screenOutput()
 {
 	return vScreenOutput;
 }
+
 void Process::screenOutput(bool screenOutput)
 {
 	vScreenOutput = screenOutput;
+}
+
+
+bool Process::statusN()
+{
+	return vStatusN;
+}
+
+void Process::statusN(bool statusN)
+{
+	vStatusN = statusN;
+}
+
+
+bool Process::statusZ()
+{
+	return vStatusZ;
+}
+
+void Process::statusZ(bool statusZ)
+{
+	vStatusZ = statusZ;
+}
+
+
+bool Process::statusV()
+{
+	return vStatusV;
+}
+
+void Process::statusV(bool statusV)
+{
+	vStatusV = statusV;
+}
+
+
+bool Process::statusC()
+{
+	return vStatusC;
+}
+
+void Process::statusC(bool statusC)
+{
+	vStatusC = statusC;
 }
 
 sRegisterType Process::sR_Accumulator()
@@ -76,15 +154,6 @@ void Process::sR_ProgramCounter(sRegisterType sR_ProgramCounter)
 	vSR_ProgramCounter = sR_ProgramCounter;
 }
 
-sRegisterType Process::traceAddr()
-{
-	return vTraceAddr;
-}
-void Process::traceAddr(sRegisterType traceAddr)
-{
-	vTraceAddr = traceAddr;
-}
-
 sIRRecType Process::sIR_InstrRegister()
 {
 	return vSIR_InstrRegister;
@@ -92,13 +161,4 @@ sIRRecType Process::sIR_InstrRegister()
 void Process::sIR_InstrRegister(sIRRecType sIR_InstrRegister)
 {
 	vSIR_InstrRegister = sIR_InstrRegister;
-}
-
-int Process::iLineCount()
-{
-	return vILineCount;
-}
-void Process::iLineCount(int iLineCount)
-{
-	vILineCount = iLineCount;
 }

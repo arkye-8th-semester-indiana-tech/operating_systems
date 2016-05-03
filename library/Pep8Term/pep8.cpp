@@ -194,6 +194,7 @@ int iLineIndex; //Index of line array
 // MARK: Custom Global Variables
 Process* processOne; // First Process
 Process* processTwo; // Second Process
+char currentFileName[FILE_NAME_LENGTH];
 // ENDMARK
 
 //**** Stores the next line of assembly language code to be translated in global cLine[].
@@ -2010,6 +2011,163 @@ void StartExecution ()
    }
 }
 
+void LoadProcess(const char* fileName)
+{
+   chariInputStream.open(fileName);
+   if (chariInputStream.is_open())
+   {
+      bMachineReset = true;
+      bBufferIsEmpty = true;
+      bLoading = true;
+      sR_StackPointer.iHigh = iMemory[SYSTEM_SP];
+      sR_StackPointer.iLow = iMemory[SYSTEM_SP + 1];
+      sR_ProgramCounter.iHigh = iMemory[LOADER_PC];
+      sR_ProgramCounter.iLow = iMemory[LOADER_PC + 1];
+      StartExecution ();
+      bLoading = false;
+			bBufferIsEmpty = true;
+			sR_StackPointer.iHigh = iMemory[USER_SP];
+			sR_StackPointer.iLow = iMemory[USER_SP + 1];
+			sR_ProgramCounter.iHigh = 0;
+			sR_ProgramCounter.iLow = 0;
+	 }
+   chariInputStream.close();
+   chariInputStream.clear();
+}
+
+// MARK: Save state of a Process
+void SaveState(bool isFirstProcess)
+{
+	Process* process;
+	if(isFirstProcess)
+	{
+		process = processOne;
+	}
+	else
+	{
+		process = processTwo;
+	}
+
+	process->loading(bLoading);
+	process->machineReset(bMachineReset);
+	process->bufferIsEmpty(bBufferIsEmpty);
+
+	process->keyboardInput(bKeyboardInput);
+	process->screenOutput(bScreenOutput);
+
+	process->statusN(bStatusN);
+	process->statusZ(bStatusZ);
+	process->statusV(bStatusV);
+	process->statusC(bStatusC);
+
+	process->sR_Accumulator(sR_Accumulator);
+	process->sR_IndexRegister(sR_IndexRegister);
+	process->sR_StackPointer(sR_StackPointer);
+	process->sR_ProgramCounter(sR_ProgramCounter);
+	process->sIR_InstrRegister(sIR_InstrRegister);
+}
+
+// MARK: Load state of a Process
+void LoadState(bool isFirstProcess)
+{
+	Process* process;
+	if(isFirstProcess)
+	{
+		process = processOne;
+	}
+	else
+	{
+		process = processTwo;
+	}
+
+	LoadProcess(process->fileName());
+
+	bLoading = process->loading();
+	bMachineReset = process->machineReset();
+	bBufferIsEmpty = process->bufferIsEmpty();
+
+	bKeyboardInput = process->keyboardInput();
+	bScreenOutput = process->screenOutput();
+
+	bStatusN = process->statusN();
+	bStatusZ = process->statusZ();
+	bStatusV = process->statusV();
+	bStatusC = process->statusC();
+
+	sR_Accumulator = process->sR_Accumulator();
+	sR_IndexRegister = process->sR_IndexRegister();
+	sR_StackPointer = process->sR_StackPointer();
+	sR_ProgramCounter = process->sR_ProgramCounter();
+	sIR_InstrRegister = process->sIR_InstrRegister();
+}
+
+// Adapting Execution
+void StartExecutionAdapter ()
+{
+
+	if (!bMachineReset && !bLoading)
+	{
+		cout << "Execution error: Machine state not initialized." << endl;
+		cout << "Use (l)oad command." << endl;
+	}
+	else
+	{
+		bool Halt = false;
+		bool HaltOne = false;
+		bool HaltTwo = false;
+		bool isFirstProcess = true;
+		const int RR_QUANTUM = 5;
+		int currentInstruction = 0;
+		//**** The von Neumann execution cycle with Round Robin Schedule
+		do
+		{
+			LoadState(isFirstProcess);
+
+			FetchIncrPC();
+			Execute (Halt);
+
+			SaveState(isFirstProcess);
+
+			if(Halt)
+			{
+				if(isFirstProcess)
+				{
+					HaltOne = true;
+					if(!HaltTwo)
+					{
+						Halt = false;
+					}
+				}
+				else
+				{
+					HaltTwo = true;
+					if(!HaltOne)
+					{
+						Halt = false;
+					}
+				}
+			}
+
+			currentInstruction++;
+
+			if(currentInstruction == RR_QUANTUM)
+			{
+				if((!HaltOne && !isFirstProcess)||(!HaltTwo && isFirstProcess))
+				{
+					isFirstProcess = !isFirstProcess;
+				}
+				currentInstruction = 0;
+			}
+		}
+		while (!Halt);
+
+		if (!bKeyboardInput)
+		{
+			chariInputStream.seekg (0, ios::beg);  // Reset input file to its beginning
+		}
+	}
+}
+
 void LoaderCommand()
 {
    char FileName[FILE_NAME_LENGTH];
@@ -2050,45 +2208,30 @@ void LoaderCommand()
    }
    chariInputStream.close();
    chariInputStream.clear();
+	 strcpy(currentFileName, FileName);
 }
 
-void SaveState(bool isFirstProcess)
-{
-	Process* process;
-	if(isFirstProcess)
-	{
-		process = processOne;
-	}
-	else
-	{
-		process = processTwo;
-	}
-
-	process->keyboardInput(bKeyboardInput);
-	process->screenOutput(bScreenOutput);
-	process->sR_Accumulator(sR_Accumulator);
-	process->sR_IndexRegister(sR_IndexRegister);
-	process->sR_StackPointer(sR_StackPointer);
-	process->sR_ProgramCounter(sR_ProgramCounter);
-	process->sIR_InstrRegister(sIR_InstrRegister);
-}
-
+// MARK: Load and save the state of both Process
 void LoaderCommandAdapter()
 {
+	cout << endl << "[First Process]" << endl << endl;
 	LoaderCommand();
+	processOne->fileName(currentFileName);
 	SaveState(true);
+	cout << endl << "[Second Process]" << endl << endl;
 	LoaderCommand();
+	processTwo->fileName(currentFileName);
 	SaveState(false);
 }
 
 void ExecuteCommand()
 {
-   bBufferIsEmpty = true;
-   sR_StackPointer.iHigh = iMemory[USER_SP];
-   sR_StackPointer.iLow = iMemory[USER_SP + 1];
-   sR_ProgramCounter.iHigh = 0;
-   sR_ProgramCounter.iLow = 0;
+   cout << endl << "[First Process]" << endl << endl;
+	 LoadProcess(processOne->fileName());
    StartExecution ();
+	 cout << endl << "[Second Process]" << endl << endl;
+	 LoadProcess(processTwo->fileName());
+	 StartExecution ();
 }
 
 void DecodeAddress (char Digits[HEX_BYTE_LENGTH + 1], int& Value)
