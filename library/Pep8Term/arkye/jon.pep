@@ -1,6 +1,0 @@
-CHARO   0x000A,d
-CHARO   0x000B,d
-CHARO   0x000C,d
-STOP
-.ASCII	"Jon"
-.END

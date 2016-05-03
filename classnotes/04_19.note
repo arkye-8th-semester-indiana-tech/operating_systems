@@ -1,0 +1,33 @@
+Chapter 10 - Memory Management
+	Non-contiguous Memory Allocation
+		Paging
+			Pages
+			Frames
+			Page Table
+			N Pages -> N Frames
+		Memory Allocation
+			No External Fragmentation
+		Logical vs Physical Memory
+			Logical: User's View
+			Physical: Actual Contents and Addresses of Memory
+		Logical Address
+			Page Number (p)
+			Page Offset (d)
+		Address Translation Architecture
+		Implementation of Page Table
+			Page-table Base Register (PTBR)
+			Page-table Length Register (PRLR)
+		Improving Memory Access
+			Translation Look-aside Buffers (TLBs)
+		Segmentation
+			Program Modules
+
+	Memory Protection
+		Valid/Invalid Bit
+		Shared Pages
+			Shared Codes
+			Private Code and Data
+
+	Virtual Memory
+		Address Translation in VM
+		
