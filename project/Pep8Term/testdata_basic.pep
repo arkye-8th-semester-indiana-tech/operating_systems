@@ -1,7 +1,7 @@
-CHARO   0x000A,d
-CHARO   0x000B,d
-CHARO   0x000C,d
-CHARO   0x000D,d
-STOP
-.ASCII	"HJJM"
+br main
+
+msg: .ascii "Hale - Jhonatan - Jonathan - Molly \x00"
+
+main: STRO msg,d
+
 .END
